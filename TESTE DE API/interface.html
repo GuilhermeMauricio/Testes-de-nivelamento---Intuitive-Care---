@@ -1,0 +1,34 @@
+<template>
+  <div>
+    <input v-model="searchQuery" placeholder="Buscar operadoras" @keyup.enter="performSearch" />
+    <button @click="performSearch">Buscar</button>
+    <ul>
+      <li v-for="(operadora, index) in results" :key="index">
+        {{ operadora.nome }} - {{ operadora.outroCampo }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchQuery: '',
+      results: []
+    };
+  },
+  methods: {
+    async performSearch() {
+      if (!this.searchQuery) return;
+      try {
+        const response = await fetch(`http://localhost:5000/search?q=${encodeURIComponent(this.searchQuery)}`);
+        this.results = await response.json();
+      } catch (error) {
+        console.error("Erro ao buscar resultados:", error);
+      }
+    }
+  }
+};
+</script>
+

@@ -7,7 +7,7 @@ CREATE DATABASE IF NOT EXISTS ans_dados
 USE ans_dados;
 
 -- criação das tabelas
-CREATE TABLE operadoras (
+CREATE TABLE IF NOT EXISTS operadoras (
     registro_ans VARCHAR(20) PRIMARY KEY,
     cnpj VARCHAR(20),
     razao_social VARCHAR(255),
@@ -28,17 +28,18 @@ CREATE TABLE operadoras (
     cargo_representante VARCHAR(100),
     regiao_comercializacao VARCHAR(50),
     data_registro DATE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `demonstracoes_contabeis` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `data` DATE,
-    `registro_ans` VARCHAR(20),
-    `codigo_contabil` VARCHAR(20),
-    `descricao` TEXT,
-    `valor_saldo_inicial` DECIMAL(18,2),
-    `valor_saldo_final` DECIMAL(18,2)
-);
+CREATE TABLE IF NOT EXISTS demonstracoes_contabeis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data DATE,
+    registro_ans VARCHAR(20),
+    codigo_contabil VARCHAR(20),
+    descricao TEXT,
+    valor_saldo_inicial DECIMAL(18,2),
+    valor_saldo_final DECIMAL(18,2)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 -- importação dos dados coletados no site 
@@ -285,9 +286,9 @@ LIMIT 10;
 
 
 
--- selecionando tudo 
-SELECT * FROM operadoras LIMIT 10000000;
+-- selecionando tudo, com intuito de visualizar todos os dados
+--SELECT * FROM operadoras LIMIT 100000;
 
--- apagando tabelas
-DROP TABLE demonstracoes_contabeis;
+-- apagando tabelas, ajuste durante desenvolvimento 
+-- DROP TABLE demonstracoes_contabeis;
 

@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "d110e6dd-79fc-42c4-b180-701730f45694",
+		"name": "Teste nivelamento ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38505750"
+	},
+	"item": [
+		{
+			"name": "buscador de operadoras",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/search?q=Unimed",
+					"protocol": "http",
+					"host": [
+					  "localhost"
+					],
+					"port": "5000",
+					"path": [
+					  "search"
+					],
+					"query": [
+					  {
+						"key": "q",
+						"value": "Unimed"
+					  }
+					]
+				  }
+			},
+			"response": []
+		}
+	]
+}

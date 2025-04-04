@@ -17,7 +17,6 @@ substituicoes = {
 
 tabelas = []
 
-# Acessar o PDF dentro do zip como arquivo em memória
 with zipfile.ZipFile(zip_path, "r") as z:
     with z.open("Anexo I.pdf") as pdf_file:
         with pdfplumber.open(BytesIO(pdf_file.read())) as pdf:
@@ -28,17 +27,16 @@ with zipfile.ZipFile(zip_path, "r") as z:
                     tabelas.append(df)
                     print(f"Página {i+1}: tabela extraída")
 
-# Combinar e tratar os dados
+# tratando os dados
 df_final = pd.concat(tabelas, ignore_index=True)
 for col in df_final.columns:
     df_final[col] = df_final[col].replace(substituicoes)
 
-# Gerar CSV em memória
 csv_buffer = StringIO()
 df_final.to_csv(csv_buffer, index=False, encoding="utf-8-sig")
 csv_buffer.seek(0)  # Voltar ao início do buffer
 
-# Compactar direto no ZIP
+# compactando
 with zipfile.ZipFile(zip_saida, "w") as z:
     z.writestr("rol_procedimentos.csv", csv_buffer.getvalue())
 
